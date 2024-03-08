@@ -20,7 +20,7 @@ class PDFConvertor
 		$response = curl_exec($curl);
 		file_put_contents($out, $response);
 
-		if (curl_errno($curl)) throw curl_error($curl);
+		if (curl_errno($curl)) throw new \Exception(curl_error($curl));
 
 		curl_close($curl);
 	}
