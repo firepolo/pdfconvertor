@@ -2,7 +2,7 @@ import express from 'express'
 import multer from 'multer'
 import { promisify } from 'util'
 import { existsSync } from 'fs'
-import { join } from 'path'
+import { resolve } from 'path'
 import { execFile } from 'child_process'
 import { exit } from 'process'
 
@@ -20,7 +20,7 @@ if (!libreoffice) {
 }
 
 const exec = promisify(execFile)
-const tmpdir = join(__dirname, '/tmp')
+const tmpdir = resolve('./tmp')
 const upload = multer({ dest: 'uploads'})
 const app = express()
 
