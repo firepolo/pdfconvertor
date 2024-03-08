@@ -4,7 +4,7 @@ import { promisify } from 'util'
 import { existsSync, createReadStream, statSync, unlink } from 'fs'
 import { resolve } from 'path'
 import { execFile } from 'child_process'
-import { exit } from 'process'
+import { exit, env } from 'process'
 
 function locate(paths)
 {
@@ -24,7 +24,7 @@ const tmpdir = resolve('./tmp')
 const upload = multer({ dest: 'uploads'})
 const app = express()
 
-app.post('/test', upload.single('file'), async (req, res) => {
+app.post('/' + env('PC_REQUEST'), upload.single('file'), async (req, res) => {
 	const input = resolve('./' + req.file.path)
 	const { stdout } = await exec(libreoffice, ['--headless', '--convert-to', 'pdf', input, '--outdir', tmpdir, req.file.filename])
 	if (!stdout) {
