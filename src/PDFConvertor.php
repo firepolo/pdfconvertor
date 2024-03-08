@@ -4,11 +4,11 @@ namespace PDFConvertor;
 
 class PDFConvertor
 {
-	static function convert(string $in, string $out)
+	static function convert(string $url, string $in, string $out)
 	{
 		$curl = curl_init();
 		curl_setopt_array($curl, [
-			CURLOPT_URL => 'http://localhost:4000/test',
+			CURLOPT_URL => $url,
 			CURLOPT_POST => true,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 10,
