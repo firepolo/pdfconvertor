@@ -26,9 +26,9 @@ const app = express()
 
 app.post('/test', upload.single('file'), async (req, res) => {
 	console.log(req.file)
-	const { stdout, stderr } = await exec(libreoffice, ['--headless', '--convert-to', 'pdf', resolve('./' + req.file.path), '--outdir', tmpdir, req.file.filename])
+	const { err, stdout } = await exec(libreoffice, ['--headless', '--convert-to', 'pdf', resolve('./' + req.file.path), '--outdir', tmpdir, req.file.filename])
 	console.log('OUT?', stdout)
-	console.log('ERROR?', stderr)
+	console.log('ERROR?', err)
 
 	res.statusCode = 200
 	res.end()
