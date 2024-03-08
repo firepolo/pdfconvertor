@@ -24,7 +24,7 @@ const tmpdir = resolve('./tmp')
 const upload = multer({ dest: 'uploads'})
 const app = express()
 
-app.post('/' + env('PC_REQUEST'), upload.single('file'), async (req, res) => {
+app.post('/' + env.PATH_REQUEST, upload.single('file'), async (req, res) => {
 	const input = resolve('./' + req.file.path)
 	const { stdout } = await exec(libreoffice, ['--headless', '--convert-to', 'pdf', input, '--outdir', tmpdir, req.file.filename])
 	if (!stdout) {
