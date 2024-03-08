@@ -1,0 +1,17 @@
+{
+    "name": "firepolo/pdfconvertor",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "firepolo",
+            "email": "anthony.pasche@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "PDFConvertor\\": "src/"
+        }
+    }
+}

@@ -1,5 +1,7 @@
 <?php
 
+namespace PDFConvertor;
+
 class PDFConvertor
 {
 	static function convert(string $in, string $out)
@@ -11,7 +13,7 @@ class PDFConvertor
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 10,
 			CURLOPT_POSTFIELDS => [
-    			'file' => new CURLfile($in)
+    			'file' => new \CURLfile($in)
 			]
 		]);
 
