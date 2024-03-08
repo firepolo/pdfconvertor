@@ -1,7 +1,7 @@
 import express from 'express'
 import multer from 'multer'
 import { promisify } from 'util'
-import { existsSync, createReadStream } from 'fs'
+import { existsSync, createReadStream, statSync } from 'fs'
 import { resolve } from 'path'
 import { execFile } from 'child_process'
 import { exit } from 'process'
@@ -33,14 +33,16 @@ app.post('/test', upload.single('file'), async (req, res) => {
 		return
 	}
 
+	const output = resolve(tmpdir, req.file.filename + '.pdf')
+	const stat = statSync(output)
+
 	res.writeHead(200, {
-		'Content-Type': req.file.mimetype,
-		'Content-Length': req.file.size
+		'Content-Type': 'application/pdf',
+		'Content-Length': stat.size
 	})
 
-	const tmp = resolve(tmpdir, req.file.filename)
-	console.log(tmp)
-	const stream = createReadStream(tmp)
+	console.log(output)
+	const stream = createReadStream(output)
 	stream.pipe(res)
 })
 
