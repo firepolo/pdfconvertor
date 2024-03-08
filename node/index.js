@@ -25,7 +25,6 @@ const upload = multer({ dest: 'uploads'})
 const app = express()
 
 app.post('/test', upload.single('file'), async (req, res) => {
-	//console.log(req.file)
 	const { stdout } = await exec(libreoffice, ['--headless', '--convert-to', 'pdf', resolve('./' + req.file.path), '--outdir', tmpdir, req.file.filename])
 	if (!stdout) {
 		res.statusCode = 400
@@ -41,9 +40,7 @@ app.post('/test', upload.single('file'), async (req, res) => {
 		'Content-Length': stat.size
 	})
 
-	console.log(output)
-	const stream = createReadStream(output)
-	stream.pipe(res)
+	createReadStream(output).pipe(res)
 })
 
 app.listen(4000, () => {

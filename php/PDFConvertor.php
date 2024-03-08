@@ -16,8 +16,7 @@ class PDFConvertor
 		]);
 
 		$response = curl_exec($curl);
-
-		echo $response;
+		file_put_contents($out, $response);
 
 		if (curl_errno($curl)) throw curl_error($curl);
 
