@@ -1,7 +1,7 @@
 import express from 'express'
 import multer from 'multer'
 import { promisify } from 'util'
-import { existsSync, createReadStream, statSync } from 'fs'
+import { existsSync, createReadStream, statSync, unlink } from 'fs'
 import { resolve } from 'path'
 import { execFile } from 'child_process'
 import { exit } from 'process'
@@ -25,12 +25,15 @@ const upload = multer({ dest: 'uploads'})
 const app = express()
 
 app.post('/test', upload.single('file'), async (req, res) => {
-	const { stdout } = await exec(libreoffice, ['--headless', '--convert-to', 'pdf', resolve('./' + req.file.path), '--outdir', tmpdir, req.file.filename])
+	const input = resolve('./' + req.file.path)
+	const { stdout } = await exec(libreoffice, ['--headless', '--convert-to', 'pdf', input, '--outdir', tmpdir, req.file.filename])
 	if (!stdout) {
 		res.statusCode = 400
 		res.end()
 		return
 	}
+
+	unlink(input)
 
 	const output = resolve(tmpdir, req.file.filename + '.pdf')
 	const stat = statSync(output)
