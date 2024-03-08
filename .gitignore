@@ -1,5 +1,6 @@
-node/node_modules
-node/uploads/*
-node/tmp/*
+node_modules
+vendor
 
-node/vendor
+uploads/*
+tmp/*
+
