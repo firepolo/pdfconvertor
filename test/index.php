@@ -1,7 +1,7 @@
 <?php
 
-include_once '../php/PDFConvertor.php';
+require '../vendor/autoload.php';
 
-$dir = dirname(__FILE__);
+use PDFConvertor\PDFConvertor;
 
-PDFConvertor::convert($dir.DIRECTORY_SEPARATOR.'input.docx', 'output.pdf');
+PDFConvertor::convert(dirname(__FILE__).DIRECTORY_SEPARATOR.'input.docx', 'output.pdf');

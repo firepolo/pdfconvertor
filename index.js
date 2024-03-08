@@ -33,7 +33,7 @@ app.post('/test', upload.single('file'), async (req, res) => {
 		return
 	}
 
-	unlink(input)
+	unlink(input, () => {})
 
 	const output = resolve(tmpdir, req.file.filename + '.pdf')
 	const stat = statSync(output)
