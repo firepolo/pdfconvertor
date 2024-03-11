@@ -24,7 +24,7 @@ const tmpdir = resolve('./tmp')
 const upload = multer({ dest: 'uploads'})
 const app = express()
 
-app.post('/' + env.PATH_REQUEST, upload.single('file'), async (req, res) => {
+app.post(env.PATH_REQUEST || '/', upload.single('file'), async (req, res) => {
 	const input = resolve('./' + req.file.path)
 	const { stdout } = await exec(libreoffice, ['--headless', '--convert-to', 'pdf', input, '--outdir', tmpdir, req.file.filename])
 	if (!stdout) {
@@ -33,7 +33,7 @@ app.post('/' + env.PATH_REQUEST, upload.single('file'), async (req, res) => {
 		return
 	}
 
-	unlink(input, () => {})
+	//unlink(input, () => {})
 
 	const output = resolve(tmpdir, req.file.filename + '.pdf')
 	const stat = statSync(output)

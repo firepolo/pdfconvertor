@@ -18,9 +18,9 @@ class PDFConvertor
 		]);
 
 		$response = curl_exec($curl);
-		file_put_contents($out, $response);
-
 		if (curl_errno($curl)) throw new \Exception(curl_error($curl));
+
+		file_put_contents($out, $response);
 
 		curl_close($curl);
 	}
